@@ -92,11 +92,12 @@ describe("Score", function () {
             let game = example_game;
             game.current_tetromino = Tetris.L_tetromino;
             game = Tetris.rotate_cw(game);
+            // Slot a L tetromino rotated into the hole and drop.
+            // This can only go two deep.
         
         R.range(0,22).forEach(function(){
             game = Tetris.next_turn(game);
         });
-            // Implement this function.
         if (game.score.score !== 300)
             throw new Error("A double line cleared should score 300");
         }
@@ -141,7 +142,10 @@ TLLL-LOOJJ`;
                 (s) => s.replace(/-/g, " ").split("")
             );
             let game = example_game2;
-            // Implement this function.
+           
+            // Slot a I tetromino rotated into the hole and drop.
+            // This can only go four deep
+            //however the top of the I tetromino does not create a full cleared line in example_game2
             game.current_tetromino = Tetris.I_tetromino;
             game = Tetris.rotate_ccw(game);
         R.range(0,24).forEach(function(){
@@ -166,9 +170,6 @@ TLLL-LOOJJ`;
         R.range(0,22).forEach(function(){
             game = Tetris.next_turn(game);
         });
-
-
-            // Implement this function.
         if (game.score.score !== 800) {
             throw new Error("A tetris should score 800");
         }
@@ -205,15 +206,15 @@ TLLL-IOOJJ`;
             );
 
             let game = example_game3
+            // Slot a I tetromino rotated into the hole and drop.
+            // This can only go four deep
+            //This is repeated twice
             game.current_tetromino = Tetris.I_tetromino;
             game = Tetris.rotate_ccw(game);
             game.score.Tetris = true
             R.range(0,22).forEach(function(){
                 game = Tetris.next_turn(game);
             });
-
-
-            // Implement this function.
         if (game.score.score !== 1200) {
             throw new Error("Back to back tetrises should score 1200");
         }
@@ -222,6 +223,7 @@ TLLL-IOOJJ`;
     it(
         `A soft drop score 1 point per cell descended`,
         function () {
+            let game = example_game
             // Implement this function.
             throw new Error("Unimplemented");
         }

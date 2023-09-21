@@ -490,11 +490,11 @@ const descend = function (game, points=0) {
  * @param {Tetris.Game} game The initial state of a game.
  * @returns {Tetris.Game} The state after a soft drop is attempted.
  */
-Tetris.soft_drop = function (game, points) {
+Tetris.soft_drop = function (game) {
     if (Tetris.is_game_over(game)) {
         return game;
     }
-    return descend(game,0);
+    return descend(game,1);
 };
 
 /**
@@ -507,7 +507,7 @@ Tetris.soft_drop = function (game, points) {
  * @param {Tetris.Game} game The initial state of a game.
  * @returns {Tetris.Game} The state after a soft drop is attempted.
  */
-Tetris.hard_drop = function (game,points) {
+Tetris.hard_drop = function (game) {
     if (Tetris.is_game_over(game)) {
         return descend(game,2);
     }
@@ -607,7 +607,7 @@ Tetris.next_turn = function (game) {
         "game_over": false,
         "next_tetromino": next_tetromino,
         "position": starting_position,
-        "score": Score.cleared_lines(num_of_cleared_lines,game.score)
+        "score": Score.cleared_lines(num_of_cleared_lines,game.score) 
     };
 };
 
