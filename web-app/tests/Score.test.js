@@ -65,6 +65,7 @@ describe("Score", function () {
         }
     );
 
+
     it(
         `A single line clear scores 100 × level`,
         function () {
@@ -72,7 +73,6 @@ describe("Score", function () {
             // Slot a T tetromino into the hole and drop.
             // This can only go one deep.
             game.current_tetromino = Tetris.T_tetromino;
-
             // I could use hard_drop here, but that would also score.
             // Instead wait for it to drop 22 times.
             R.range(0, 22).forEach(function () {
@@ -86,6 +86,7 @@ describe("Score", function () {
         }
     );
 
+
     it(
         `A double line clear scores 300 × level`,
         function () {
@@ -94,7 +95,6 @@ describe("Score", function () {
             game = Tetris.rotate_cw(game);
             // Slot a L tetromino rotated into the hole and drop.
             // This can only go two deep.
-        
         R.range(0,22).forEach(function(){
             game = Tetris.next_turn(game);
         });
@@ -104,16 +104,9 @@ describe("Score", function () {
     );
 
 
-
-
-
-
-
-    
     it(
         `A triple line clear scores 500 × level`,
         function () {
-
             const example_game2 = Tetris.new_game();
             const field_string2 = `----------
 ----------
@@ -137,22 +130,20 @@ SSSZ--OOJJ
 TSZZ-LOOJJ
 TTZL-LOOJJ
 TLLL-LOOJJ`;
-            
             example_game2.field = field_string2.split("\n").map(
                 (s) => s.replace(/-/g, " ").split("")
             );
+
             let game = example_game2;
-           
             // Slot a I tetromino rotated into the hole and drop.
             // This can only go four deep
             //however the top of the I tetromino does not create a full cleared line in example_game2
             game.current_tetromino = Tetris.I_tetromino;
             game = Tetris.rotate_ccw(game);
+        
         R.range(0,24).forEach(function(){
                 game = Tetris.next_turn(game);
         });
-
-
         if (game.score.score !== 500) {
             throw new Error("A triple line cleared should score 500");
         }}
@@ -212,6 +203,7 @@ TLLL-IOOJJ`;
             game.current_tetromino = Tetris.I_tetromino;
             game = Tetris.rotate_ccw(game);
             game.score.Tetris = true
+        
             R.range(0,22).forEach(function(){
                 game = Tetris.next_turn(game);
             });
@@ -219,6 +211,7 @@ TLLL-IOOJJ`;
             throw new Error("Back to back tetrises should score 1200");
         }
     });
+
 
     it(
         `A soft drop score 1 point per cell descended`,
@@ -276,17 +269,15 @@ TLLL-IOOJJ`;
         }
     });
 
+
     it(
         `Advancing the turn without manually dropping scores nothing.`,
         function () {
-        
             let game = example_game;
-            
             R.range(0, 3).forEach(function () {
                 game = Tetris.next_turn(game);
             });
 
-        
             // game score should not increase
             if (game.score.score !== 0) {
                 throw new Error("Advancing the turn without manually dropping scores zero");
