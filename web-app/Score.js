@@ -36,11 +36,17 @@ Score.new_score = function () {
  * @param {Score} score;
  * @returns {number}
  */
+
 Score.level = function (score) {
     return Math.floor(1+ (score.lines_cleared/10));
 };
 
-
+/**
+ * 
+ * @param {number} numberoflines number of lines cleared
+ * @param {*} Score_input the current score
+ * @returns the new updated score
+ */
 Score.cleared_lines = function(numberoflines, Score_input){
     //update and add additiomal lines to score.
     Score_input.lines_cleared += numberoflines;
@@ -68,15 +74,17 @@ Score.cleared_lines = function(numberoflines, Score_input){
     return  (Score_input)
 };
 
-
-//   // Exporting the cleared_lines function
-//   module.exports.cleared_lines = cleared_lines;
+/**
+ * 
+ * @param {number} Score_input the current score
+ * @param {Score_input} points points that are to beadded
+ * @returns  updated score
+ */
 
 Score.add_points = function(Score_input, points){
     Score_input.score += points;
-    return Score_input
-}
-// def descend(points=0):
+    return Score_input;
+};
 
 
 export default Object.freeze(Score);
