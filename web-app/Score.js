@@ -46,11 +46,12 @@ Score.level = function (score) {
  * 
  * @param {number} numberoflines number of lines cleared
  * @param {*} Score_input the current score
- * @returns the new updated score
+ * @returns the new updated score with it * level
  */
+
 Score.cleared_lines = function(numberoflines, Score_input){
     //update and add additional lines cleared to score.
-    const level = Score.level(Score_input)
+    const level = Score.level(Score_input);
 
     Score_input.lines_cleared += numberoflines;
     if(numberoflines==1){
