@@ -28,6 +28,86 @@ TLLL-IOOJJ`;
 example_game.field = field_string.split("\n").map(
     (s) => s.replace(/-/g, " ").split("")
 );
+const example_game2 = Tetris.new_game();
+const field_string2 = `----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+-S--------
+SSS-------
+SSSZ--OOJJ
+TSZZ-LOOJJ
+TTZL-LOOJJ
+TLLL-LOOJJ`;
+example_game2.field = field_string2.split("\n").map(
+    (s) => s.replace(/-/g, " ").split("")
+);
+
+const example_game3 = Tetris.new_game();
+const field_string3 = `----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+TLLL-IOOJJ
+TTZL-IOOJJ
+TSZZ-IOOJJ
+SSSZ-IOOJJ
+SSSZ-IOOJJ
+TSZZ-IOOJJ
+TTZL-IOOJJ
+TLLL-IOOJJ`;
+example_game3.field = field_string3.split("\n").map(
+    (s) => s.replace(/-/g, " ").split("")
+);
+
+const example_game4 = Tetris.new_game();
+const field_string4 = `----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------`;
+example_game4.field = field_string4.split("\n").map(
+    (s) => s.replace(/-/g, " ").split("")
+);
 
 describe("Score", function () {
     it(
@@ -107,33 +187,6 @@ describe("Score", function () {
     it(
         `A triple line clear scores 500 × level`,
         function () {
-            const example_game2 = Tetris.new_game();
-            const field_string2 = `----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
--S--------
-SSS-------
-SSSZ--OOJJ
-TSZZ-LOOJJ
-TTZL-LOOJJ
-TLLL-LOOJJ`;
-            example_game2.field = field_string2.split("\n").map(
-                (s) => s.replace(/-/g, " ").split("")
-            );
-
             let game = example_game2;
             // Slot a I tetromino rotated into the hole and drop.
             // This can only go four deep
@@ -169,33 +222,6 @@ TLLL-LOOJJ`;
     it(
         `Back to back tetrises score 1200 × level`,
         function () {
-            const example_game3 = Tetris.new_game();
-            const field_string = `----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-TLLL-IOOJJ
-TTZL-IOOJJ
-TSZZ-IOOJJ
-SSSZ-IOOJJ
-SSSZ-IOOJJ
-TSZZ-IOOJJ
-TTZL-IOOJJ
-TLLL-IOOJJ`;
-            example_game3.field = field_string.split("\n").map(
-                (s) => s.replace(/-/g, " ").split("")
-            );
-
             let game = example_game3
             // Slot a I tetromino rotated into the hole and drop.
             // This can only go four deep
@@ -232,33 +258,6 @@ TLLL-IOOJJ`;
     it(
         `A hard drop score 2 point per cell descended`,
         function () {
-            const example_game4 = Tetris.new_game();
-            const field_string4 = `----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------
-----------`;
-            example_game4.field = field_string4.split("\n").map(
-                (s) => s.replace(/-/g, " ").split("")
-            );
-
             let game = example_game4;
             game.current_tetromino = Tetris.I_tetromino;
             game= Tetris.hard_drop(game);
@@ -277,7 +276,6 @@ TLLL-IOOJJ`;
             R.range(0, 3).forEach(function () {
                 game = Tetris.next_turn(game);
             });
-
             // game score should not increase
             if (game.score.score !== 0) {
                 throw new Error("Advancing the turn without manually dropping scores zero");
