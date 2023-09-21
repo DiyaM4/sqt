@@ -41,6 +41,7 @@ Score.level = function (score) {
     return Math.floor(1+ (score.lines_cleared/10));
 };
 
+
 /**
  * 
  * @param {number} numberoflines number of lines cleared
@@ -48,27 +49,29 @@ Score.level = function (score) {
  * @returns the new updated score
  */
 Score.cleared_lines = function(numberoflines, Score_input){
-    //update and add additiomal lines to score.
+    //update and add additional lines cleared to score.
+    const level = Score.level(Score_input)
+
     Score_input.lines_cleared += numberoflines;
     if(numberoflines==1){
         Score_input.Tetris = false;
-        Score_input.score += 100;
+        Score_input.score += (100 * level);
     }
     else if(numberoflines==2){
         Score_input.Tetris = false;
-        Score_input.score += 300;
+        Score_input.score += (300 * level);
     }
     else if(numberoflines==3){
         Score_input.Tetris = false;
-        Score_input.score += 500;
+        Score_input.score += (500 * level);
     }
     else if(!Score_input.Tetris && numberoflines==4){
         Score_input.Tetris = true;
-        Score_input.score += 800;
+        Score_input.score += (800 * level);
     }
     else if(Score_input.Tetris && numberoflines ==4 ){
         Score_input.Tetris = true;
-        Score_input.score += 1200;
+        Score_input.score += (1200 * level);
     }
         //return new score
     return  (Score_input)
@@ -82,7 +85,7 @@ Score.cleared_lines = function(numberoflines, Score_input){
  */
 
 Score.add_points = function(Score_input, points){
-    Score_input.score += points;
+    Score_input.score + points;
     return Score_input;
 };
 
