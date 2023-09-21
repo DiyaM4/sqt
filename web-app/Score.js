@@ -64,11 +64,11 @@ Score.cleared_lines = function(numberoflines, Score_input){
         Score_input.Tetris = true;
         Score_input.score += 1200;
     }
-        //return new score  
+        //return new score
     return  (Score_input)
 };
 
-  
+
 //   // Exporting the cleared_lines function
 //   module.exports.cleared_lines = cleared_lines;
 
