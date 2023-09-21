@@ -269,10 +269,10 @@ TLLL-IOOJJ`;
             let game = example_game4;
             game.current_tetromino = Tetris.I_tetromino;
             game= Tetris.hard_drop(game);
-            // This scores 2 points per cell(row) descended x 21 rows
+            // This scores 2 points per cell(row) descended x 21 rows = 42
 
         if (game.score.score !==42 ) {
-            throw new Error("A hard drop score 2 point per cell descended");
+            throw new Error("A hard drop scores 2 point per cell descended");
         }
     });
 
@@ -287,7 +287,7 @@ TLLL-IOOJJ`;
             });
 
         
-            // Implement this function.
+            // game score should not increase
             if (game.score.score !== 0) {
                 throw new Error("Advancing the turn without manually dropping scores zero");
             }
