@@ -223,19 +223,29 @@ TLLL-IOOJJ`;
     it(
         `A soft drop score 1 point per cell descended`,
         function () {
-            let game = example_game
+            let game = example_game;
+            game.current_tetromino = Tetris.S_tetromino;
+            game= Tetris.soft_drop(game);
             // Implement this function.
-            throw new Error("Unimplemented");
+
+        if (game.score.score !== 1) {
+            throw new Error("soft drop score 1 point per cell descended");
         }
-    );
+    });
+
 
     it(
         `A hard drop score 2 point per cell descended`,
         function () {
+            let game = example_game;
+            game.current_tetromino = Tetris.I_tetromino;
+            game= Tetris.hard_drop_drop(game);
             // Implement this function.
-            throw new Error("Unimplemented");
+
+        if (game.score.score !==2 ) {
+            throw new Error("A hard drop score 2 point per cell descended");
         }
-    );
+    });
 
     it(
         `Advancing the turn without manually dropping scores nothing.`,
