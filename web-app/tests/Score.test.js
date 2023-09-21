@@ -225,6 +225,7 @@ TLLL-IOOJJ`;
         function () {
             let game = example_game;
             // Slot a S tetromino into game
+            // This does not go deep therefore
             // This cannot create a cleared line so score only goes up by one due to soft drop
             game.current_tetromino = Tetris.S_tetromino;
             game= Tetris.soft_drop(game);
@@ -238,12 +239,39 @@ TLLL-IOOJJ`;
     it(
         `A hard drop score 2 point per cell descended`,
         function () {
-            let game = example_game;
-            game.current_tetromino = Tetris.I_tetromino;
-            game= Tetris.hard_drop_drop(game);
-            // Implement this function.
+            const example_game4 = Tetris.new_game();
+            const field_string4 = `----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------
+----------`;
+            example_game4.field = field_string4.split("\n").map(
+                (s) => s.replace(/-/g, " ").split("")
+            );
 
-        if (game.score.score !==2 ) {
+            let game = example_game4;
+            game.current_tetromino = Tetris.I_tetromino;
+            game= Tetris.hard_drop(game);
+            // This scores 2 points per cell(row) descended x 21 rows
+
+        if (game.score.score !==42 ) {
             throw new Error("A hard drop score 2 point per cell descended");
         }
     });
@@ -266,4 +294,3 @@ TLLL-IOOJJ`;
         }
     );
 });
-
