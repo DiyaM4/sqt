@@ -5,12 +5,14 @@
  * This module provides the scoring system for a Tetris Game.
  */
 const Score = {};
+const Lines_cleared = {};
+const Tetris = {};
 
 /**
  * The score object contains information about the score of the game.
  * Currently it is implemented as a single number,
  * but could include other information such as the number of lines cleared.
- * @typedef {number} Score
+ * @typedef {object} Score
  * @memberof Score
  */
 
@@ -21,11 +23,62 @@ const Score = {};
  * @returns {Score.Score} The new game.
  */
 Score.new_score = function () {
-    return 0;
+    return {
+        "score": 0,
+        "lines_cleared": 0,
+        "Tetris": false
+    };
 };
 
+
+/**
+ * Level funtion returns an updates level based on every 10 lines cleared
+ * @param {Score} score;
+ * @returns {number}
+ */
 Score.level = function (score) {
-    return 1;
+    return Math.floor(1+ (score.lines_cleared/10));
 };
+
+
+Score.cleared_lines = function(numberoflines, Score_input){
+    //update and add additiomal lines to score.
+    Score_input.lines_cleared += numberoflines;
+    if(numberoflines==1){
+        Score_input.Tetris = false;
+        Score_input.score += 100;
+    }
+    else if(numberoflines==2){
+        Score_input.Tetris = false;
+        Score_input.score += 300;
+    }
+    else if(numberoflines==3){
+        Score_input.Tetris = false;
+        Score_input.score += 500;
+    }
+    else if(!Score_input.Tetris && numberoflines==4){
+        Score_input.Tetris = true;
+        Score_input.score += 800;
+    }
+    else if(Score_input.Tetris && numberoflines ==4 ){
+        Score_input.Tetris = true;
+        Score_input.score += 1200;
+    }
+        //return new score  
+    return  (Score_input)
+};
+
+  
+//   // Exporting the cleared_lines function
+//   module.exports.cleared_lines = cleared_lines;
+
+Score.add_points = function(Score_input, points){
+    Score_input.score += points;
+    return Score_input
+}
+// def descend(points=0):
+
 
 export default Object.freeze(Score);
+`1`
+

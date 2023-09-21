@@ -471,11 +471,13 @@ Tetris.rotate_ccw = function (game) {
     return R.mergeRight(game, {"current_tetromino": new_rotation});
 };
 
-const descend = function (game) {
+const descend = function (game, points=0) {
     const new_position = [game.position[0], game.position[1] + 1];
     if (is_blocked(game.field, game.current_tetromino, new_position)) {
         return game;
     }
+    const added_score = Score.add_points(game.score, points);
+    game.score = added_score; 
     return R.mergeRight(game, {"position": new_position});
 };
 
@@ -488,11 +490,11 @@ const descend = function (game) {
  * @param {Tetris.Game} game The initial state of a game.
  * @returns {Tetris.Game} The state after a soft drop is attempted.
  */
-Tetris.soft_drop = function (game) {
+Tetris.soft_drop = function (game, points) {
     if (Tetris.is_game_over(game)) {
         return game;
     }
-    return descend(game);
+    return descend(game,0);
 };
 
 /**
@@ -505,11 +507,11 @@ Tetris.soft_drop = function (game) {
  * @param {Tetris.Game} game The initial state of a game.
  * @returns {Tetris.Game} The state after a soft drop is attempted.
  */
-Tetris.hard_drop = function (game) {
+Tetris.hard_drop = function (game,points) {
     if (Tetris.is_game_over(game)) {
-        return game;
+        return descend(game,2);
     }
-    const dropped_once = descend(game);
+    const dropped_once = descend(game, 2);
     if (R.equals(game, dropped_once)) {
         return Tetris.next_turn(game);
     }
@@ -530,6 +532,8 @@ const lock = function (game) {
     return updated_field;
 };
 
+
+
 const is_complete_line = (line) => !line.some((block) => block === empty_block);
 
 const pad_field = function (short_field) {
@@ -542,6 +546,11 @@ const clear_lines = R.pipe(
     R.reject(is_complete_line),
     pad_field
 );
+
+
+const number_of_lines_ready_to_be_cleared = R.pipe(
+    R.count(is_complete_line)
+)
 
 /**
  * next_turn advances the Tetris game.
@@ -583,9 +592,13 @@ Tetris.next_turn = function (game) {
     // So lock the current piece in place and deploy the next.
     const locked_field = lock(game);
 
+    const num_of_cleared_lines = number_of_lines_ready_to_be_cleared(locked_field);
+
     const cleared_field = clear_lines(locked_field);
 
     const [next_tetromino, bag] = game.bag();
+
+    
 
     return {
         "bag": bag,
@@ -594,7 +607,7 @@ Tetris.next_turn = function (game) {
         "game_over": false,
         "next_tetromino": next_tetromino,
         "position": starting_position,
-        "score": game.score
+        "score": Score.cleared_lines(num_of_cleared_lines,game.score)
     };
 };
 
