@@ -248,7 +248,7 @@ TLLL-IOOJJ`;
         
             // Implement this function.
             if (game.score.score !== 0) {
-                throw new Error("score should equal zero");
+                throw new Error("Advancing the turn without manually dropping scores zero");
             }
         }
     );
