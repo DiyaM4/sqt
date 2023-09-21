@@ -224,9 +224,10 @@ TLLL-IOOJJ`;
         `A soft drop score 1 point per cell descended`,
         function () {
             let game = example_game;
+            // Slot a S tetromino into game
+            // This cannot create a cleared line so score only goes up by one due to soft drop
             game.current_tetromino = Tetris.S_tetromino;
             game= Tetris.soft_drop(game);
-            // Implement this function.
 
         if (game.score.score !== 1) {
             throw new Error("soft drop score 1 point per cell descended");
